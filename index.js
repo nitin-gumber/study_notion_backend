@@ -43,7 +43,7 @@ app.use(
   cors({
     origin: (origin, callback) => {
       // Allowed origins
-      const allowedOrigins = ["http://localhost:5173", "http://localhost:5174"];
+      const allowedOrigins = proces.env.CORS_ORIGIN_URL;
       if (!origin || allowedOrigins.indexOf(origin) !== -1) {
         callback(null, true);
       } else {
