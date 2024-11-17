@@ -59,10 +59,7 @@ app.use("/api/v1_102024/reach", contactUsRoutes);
 
 // default route
 app.get("/", (req, res) => {
-  return res.json({
-    success: true,
-    message: "Welcome to the E-Learning API",
-  });
+  res.send("Welcome to the eLearning platform");
 });
 
 app.listen(PORT, () => {
