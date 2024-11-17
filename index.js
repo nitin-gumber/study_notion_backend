@@ -1,4 +1,6 @@
 const express = require("express");
+// cors middleware to allow cross-origin requests
+const cors = require("cors");
 
 const app = express();
 
@@ -11,9 +13,6 @@ const contactUsRoutes = require("./routes/Contact");
 
 // Cookie parser middleware to parse the cookies
 const cookieParser = require("cookie-parser");
-
-// cors middleware to allow cross-origin requests
-const cors = require("cors");
 
 // File upload middleware to upload files
 const fileUpload = require("express-fileupload");
@@ -39,21 +38,11 @@ const whitelist = process.env.CORS_ORIGIN
   ? JSON.parse(process.env.CORS_ORIGIN)
   : ["*"];
 
-app.use(
-  // cors({
-  //   origin: (origin, callback) => {
-  //     // Allowed origins
-  //     const allowedOrigins = proces.env.CORS_ORIGIN_URL;
-  //     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-  //       callback(null, true);
-  //     } else {
-  //       callback(new Error("Not allowed by CORS"));
-  //     }
-  //   },
-  // })
-  cors()
-);
-
+const corsOptions = {
+  credentials: true,
+  origin: ["https://studynotinfrontend.vercel.app"], // Whitelist the domains you want to allow
+};
+app.use(cors(corsOptions));
 app.use(
   fileUpload({
     useTempFiles: true,
