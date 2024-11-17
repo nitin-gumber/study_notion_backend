@@ -34,15 +34,12 @@ connectDB();
 app.use(express.json());
 app.use(cookieParser());
 
-const whitelist = process.env.CORS_ORIGIN
-  ? JSON.parse(process.env.CORS_ORIGIN)
-  : ["*"];
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
-const corsOptions = {
-  credentials: true,
-  origin: ["https://studynotinfrontend.vercel.app"], // Whitelist the domains you want to allow
-};
-app.use(cors(corsOptions));
 app.use(
   fileUpload({
     useTempFiles: true,
