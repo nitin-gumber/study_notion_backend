@@ -39,7 +39,7 @@ app.use(
     origin: "*",
   })
 );
-
+app.use(express.static("public")) 
 app.use(
   fileUpload({
     useTempFiles: true,
