@@ -40,17 +40,18 @@ const whitelist = process.env.CORS_ORIGIN
   : ["*"];
 
 app.use(
-  cors({
-    origin: (origin, callback) => {
-      // Allowed origins
-      const allowedOrigins = proces.env.CORS_ORIGIN_URL;
-      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-  })
+  // cors({
+  //   origin: (origin, callback) => {
+  //     // Allowed origins
+  //     const allowedOrigins = proces.env.CORS_ORIGIN_URL;
+  //     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+  //       callback(null, true);
+  //     } else {
+  //       callback(new Error("Not allowed by CORS"));
+  //     }
+  //   },
+  // })
+  cors()
 );
 
 app.use(
