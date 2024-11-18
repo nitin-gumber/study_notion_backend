@@ -280,7 +280,7 @@ exports.changePassword = async (req, res) => {
 
     // send email to user
     try {
-      const emailResponse = await mailSender(
+      await mailSender(
         userDetails.email,
         "Password Updated",
         passwordUpdated(updatedUserDetails.firstName)

@@ -37,13 +37,28 @@ exports.resetPasswordToken = async (req, res) => {
     );
 
     // create url for the reset password
-    const url = `http://localhost:5173/update-password/${token}`;
+    const url = `https://studynotion-online.vercel.app/${token}`;
 
     // send the mail to the user
     await mailSender(
       email,
-      "Reset Password",
-      `<p>Please click the following link to reset your password: <a href="${url}">${url}</a></p>`
+      "Reset Your Password",
+      `
+      Dear User,
+    
+      We received a request to reset your password for your account. Please click the link below to reset your password:
+    
+      ${url}
+    
+      If you did not request a password reset, please ignore this email or contact our support team immediately.
+    
+      For security reasons, this link will expire in 10 min.
+    
+      Best regards,  
+      The StudyNotion Team  
+      Email: studynotionceo@gmail.com  
+      Website: https://studynotion-online.vercel.app/  
+      `
     );
 
     // return response to user with success message

@@ -47,7 +47,6 @@ exports.capturePayment = async (req, res) => {
       // Add the price of the course to the total amount
       total_amount += course.price;
     } catch (error) {
-      console.error("Course Fetch Error:", error);
       return res.status(500).json({ success: false, message: error.message });
     }
   }
@@ -58,14 +57,9 @@ exports.capturePayment = async (req, res) => {
     receipt: `receipt_${Math.floor(Math.random() * 1000000)}`,
   };
 
-  console.log("Options: ", options);
-  console.log("Receipt: ", options.receipt);
-
   try {
     // Create a new order using the Razorpay instance
     const paymentResponse = await instance.orders.create(options);
-
-    console.log("Payment Response: ", paymentResponse);
 
     res.json({
       success: true,
@@ -143,7 +137,6 @@ exports.sendPaymentSuccessEmail = async (req, res) => {
       )
     );
   } catch (error) {
-    console.log("error in sending mail", error);
     return res
       .status(400)
       .json({ success: false, message: "Could not send email" });

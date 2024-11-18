@@ -3,7 +3,7 @@ const router = express.Router();
 
 // Import the required controllers and middlewares for the user routes
 
-const { auth, isInstructor, isStudent } = require("../middlewares/auth");
+const { auth } = require("../middlewares/auth");
 
 const { contactUsController } = require("../controllers/ContactUs");
 
@@ -11,6 +11,6 @@ const { contactUsController } = require("../controllers/ContactUs");
 //                            Contact Us Routes
 // **************************************************************************************
 
-router.post("/contact", auth, isStudent, isInstructor, contactUsController);
+router.post("/contact", auth, contactUsController);
 
 module.exports = router;

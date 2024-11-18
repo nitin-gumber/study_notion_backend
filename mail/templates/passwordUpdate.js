@@ -1,5 +1,5 @@
 exports.passwordUpdated = (name) => {
-    return `
+  return `
       <!DOCTYPE html>
   <html lang="en">
   
@@ -29,14 +29,14 @@ exports.passwordUpdated = (name) => {
   
           .logo {
               max-width: 150px;
-              margin-bottom: 30px;
+              margin: 20px auto;
           }
   
           .message {
-              font-size: 24px;
+              font-size: 26px;
               font-weight: bold;
               color: #2c3e50;
-              margin-bottom: 10px;
+              margin: 20px 0;
           }
   
           .body {
@@ -44,6 +44,10 @@ exports.passwordUpdated = (name) => {
               color: #555;
               margin-bottom: 20px;
               text-align: left;
+          }
+  
+          .body p {
+              margin: 10px 0;
           }
   
           .cta {
@@ -54,8 +58,8 @@ exports.passwordUpdated = (name) => {
               text-decoration: none;
               border-radius: 5px;
               font-size: 16px;
-              font-weight: 600;
-              margin-top: 20px;
+              font-weight: bold;
+              margin: 20px 0;
               transition: background-color 0.3s ease;
           }
   
@@ -66,7 +70,7 @@ exports.passwordUpdated = (name) => {
           .support {
               font-size: 14px;
               color: #7f8c8d;
-              margin-top: 20px;
+              margin: 20px 0;
               text-align: left;
           }
   
@@ -84,39 +88,46 @@ exports.passwordUpdated = (name) => {
               color: #b2bec3;
               margin-top: 40px;
               border-top: 1px solid #eee;
-              padding-top: 20px;
+              padding: 20px 0;
+              text-align: center;
           }
   
           .footer a {
               color: #3498db;
               text-decoration: none;
+              margin: 0 10px;
+          }
+  
+          .footer a:hover {
+              text-decoration: underline;
           }
       </style>
   </head>
   
   <body>
       <div class="container">
-          <a href="https://studynotion-edtech-project.vercel.app">
+          <a href="https://studynotion-online.vercel.app/">
               <img class="logo" src="https://i.ibb.co/7Xyj3PC/logo.png" alt="StudyNotion Logo">
           </a>
-          <div class="message">Passwrd Updated Successfully</div>
+          <div class="message">Password Updated Successfully</div>
           <div class="body">
               <p>Hello <strong>${name}</strong>,</p>
               <p>We wanted to let you know that your password was successfully updated. If this action wasn’t performed by you, please contact our support team immediately to secure your account.</p>
               <p>You can log in to your account using the button below:</p>
-              <a class="cta" href="yha pr login ka route ayega">Login to Your Account</a>
-              <p>If you need assistance, feel free to reach out to us at <a href="mailto:info@studynotion.com">info@studynotion.com</a>.</p>
+              <a class="cta" href="https://studynotion-online.vercel.app/login">Login to Your Account</a>
+              <p>If you need assistance, feel free to reach out to us at <a href="mailto:studynotionceo@gmail.com">info@studynotion.com</a>.</p>
           </div>
           <div class="support">
               Best regards,<br>
               The StudyNotion Team
           </div>
           <div class="footer">
-              If you have any questions or concerns, visit our <a href="https://studynotion-edtech-project.vercel.app">Help Center</a> or follow us on <a href="https://twitter.com/studynotion">Twitter</a>.
+              If you have any questions or concerns, visit our <a href="https://studynotion-online.vercel.app/">Help Center</a> or follow us on 
+              <a href="https://studynotion-online.vercel.app/">Twitter</a> | <a href="https://studynotion-online.vercel.app/">LinkedIn</a><br>
+              &copy; ${new Date().getFullYear()} StudyNotion. All rights reserved.
           </div>
       </div>
   </body>
-  
+
   </html>`;
-  };
-  
+};
