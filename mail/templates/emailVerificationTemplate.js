@@ -1,5 +1,5 @@
-exports.emailVerificationTemplate = (otp, email) => {
-    return `<!DOCTYPE html>
+const emailVerificationTemplate = (otp, email) => {
+  return `<!DOCTYPE html>
     <html lang="en">
   
     <head>
@@ -143,5 +143,6 @@ exports.emailVerificationTemplate = (otp, email) => {
         </div>
     </body>
     </html>`;
-  };
-  
+};
+
+module.exports = emailVerificationTemplate;
