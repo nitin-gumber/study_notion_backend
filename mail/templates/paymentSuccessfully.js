@@ -1,4 +1,4 @@
-exports.paymentSuccessfully = (name, courseName, orderId, amount) => {
+exports.paymentSuccessfully = (name, amount, orderId, paymentId) => {
   return `
       <!DOCTYPE html>
   <html lang="en">
@@ -130,13 +130,14 @@ exports.paymentSuccessfully = (name, courseName, orderId, amount) => {
   
           <div class="body">
               <p>Dear <strong>${name}</strong>,</p>
-              <p>We are thrilled to inform you that your payment for the course <span class="detail-item">${courseName}</span> has been successfully processed.</p>
+              <p>We are thrilled to inform you that your payment for the course <span class="detail-item">${amount}</span> has been successfully processed.</p>
               <p>Your learning journey starts now! Log in to your dashboard to access the course materials and take the first step toward achieving your goals.</p>
           </div>
   
           <div class="order-details">
               <p class="detail-item"><strong>Order ID:</strong> ${orderId}</p>
-              <p class="detail-item"><strong>Payment Amount:</strong> ₹${amount}</p>
+              <p class="detail-item"><strong>Payment ID:</strong> ${paymentId}</p>
+                <p class="detail-item"><strong>Amount:</strong> Rs. ${amount}</p>
           </div>
   
           <a class="cta" href="https://studynotion-online.vercel.app/dashboard/enrolled-courses">Go To Dashboard</a>
@@ -147,10 +148,7 @@ exports.paymentSuccessfully = (name, courseName, orderId, amount) => {
           </div>
   
           <div class="footer">
-              You received this email because you made a purchase on <a href="https://studynotion-online.vercel.app">StudyNotion</a>.
-              <br>
-              <a href="https://studynotion-online.vercel.app/">Twitter</a> | 
-              <a href="https://studynotion-online.vercel.app/">LinkedIn</a>
+              You received this email because you made a purchase on <a href="https://studynotion-online.vercel.app">StudyNotion</a> | <a href="https://x.com/Nitin601?t=tt1K5tdELxi2F8aeSbxZqg&s=09">Twitter</a> | <a href="https://www.linkedin.com/in/nitin-gumber-web-dev">LinkedIn</a> | <a href="https://www.instagram.com/nitin.gumber_/profilecard/?igsh=ZnpibmRycjMwZjJq">Instagram</a> | <a href="https://github.com/Nitin-Gumber">GitHub</a>
           </div>
       </div>
   </body>

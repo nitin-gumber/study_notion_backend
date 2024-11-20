@@ -122,8 +122,8 @@ exports.passwordUpdated = (name) => {
               The StudyNotion Team
           </div>
           <div class="footer">
-              If you have any questions or concerns, visit our <a href="https://studynotion-online.vercel.app/">Help Center</a> or follow us on 
-              <a href="https://studynotion-online.vercel.app/">Twitter</a> | <a href="https://studynotion-online.vercel.app/">LinkedIn</a><br>
+              If you have any questions or concerns, visit our <a href="https://studynotion-online.vercel.app/">Help Center</a> or follow us on <a href="https://x.com/Nitin601?t=tt1K5tdELxi2F8aeSbxZqg&s=09">Twitter</a> | <a href="https://www.linkedin.com/in/nitin-gumber-web-dev">LinkedIn</a> | <a href="https://www.instagram.com/nitin.gumber_/profilecard/?igsh=ZnpibmRycjMwZjJq">Instagram</a> | <a href="https://github.com/Nitin-Gumber">GitHub</a> 
+              <br>
               &copy; ${new Date().getFullYear()} StudyNotion. All rights reserved.
           </div>
       </div>

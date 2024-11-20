@@ -128,7 +128,7 @@ exports.sendPaymentSuccessEmail = async (req, res) => {
     // Send the email to the enrolled student using the mailSender function
     await mailSender(
       enrolledStudent.email,
-      `Payment Received`,
+      `Payment Sucessfully`,
       paymentSuccessfully(
         `${enrolledStudent.firstName} ${enrolledStudent.lastName}`,
         amount / 100,
