@@ -53,8 +53,9 @@ exports.createCourse = async (req, res) => {
     }
 
     // Check if the user is an instructor or not
-    const instructorDetails = await User.findById(userId, {
-      accountType: "Instructor",
+    const instructorDetails = await User.findOne({
+      _id: userId,
+      accountType: "Instructor", // Ensure only Instructors are allowed
     });
 
     if (!instructorDetails) {
@@ -95,9 +96,7 @@ exports.createCourse = async (req, res) => {
 
     // Add the new course to the Instructor's courses array
     await User.findByIdAndUpdate(
-      {
-        _id: instructorDetails._id,
-      },
+      instructorDetails._id,
       {
         $push: {
           courses: newCourse._id,
@@ -108,9 +107,8 @@ exports.createCourse = async (req, res) => {
 
     // Add the new course to the Category's course array
     await Category.findByIdAndUpdate(
-      {
-        _id: categoryDetails._id,
-      },
+      categoryDetails._id,
+
       {
         $push: {
           course: newCourse._id,
@@ -409,82 +407,54 @@ exports.deleteCourse = async (req, res) => {
   try {
     const { courseId } = req.body;
 
-    // Find the course from the database with the given courseId
+    // Find the course from the database
     const course = await Course.findById(courseId);
     if (!course) {
       return res.status(404).json({ message: "Course not found" });
     }
 
-    // Unenroll all students from the course and remove the course from their courses array
+    // Unenroll students from the course
     const studentsEnrolled = course.studentsEnrolled;
-    for (const studentId of studentsEnrolled) {
-      await User.findByIdAndUpdate(studentId, {
-        $pull: { courses: courseId },
-      });
-    }
+    await Promise.all(
+      studentsEnrolled.map((studentId) =>
+        User.findByIdAndUpdate(studentId, { $pull: { courses: courseId } })
+      )
+    );
 
     // Delete the course thumbnail
     if (course.thumbnail) {
-      // Delete the thumbnail image from Cloudinary extract the publicId from the URL
-      const publicId = course.thumbnail.split("/").pop().split(".")[0];
-      await deleteAssetsFromCloudinary(
-        publicId,
-        process.env.CLOUDINARY_FOLDER_NAME,
-        "image"
-      );
-    }
-
-    // Delete the course content videos from Cloudinary
-    const courseContent = course.courseContent;
-    for (const sectionId of courseContent) {
-      const section = await Section.findById(sectionId);
-      if (section) {
-        const subSections = section.subSection;
-        for (const subSectionId of subSections) {
-          const subSection = await SubSection.findById(subSectionId);
-          if (subSection) {
-            if (subSection.videoUrl) {
-              // Delete the video from Cloudinary extract the publicId from the URL
-              const publicId = subSection.videoUrl
-                .split("/")
-                .pop()
-                .split(".")[0];
-              await deleteAssetsFromCloudinary(
-                publicId,
-                process.env.CLOUDINARY_FOLDER_NAME,
-                "video"
-              );
-            }
-          }
-        }
+      try {
+        const publicId = course.thumbnail.split("/").pop().split(".")[0];
+        await deleteAssetsFromCloudinary(
+          publicId,
+          process.env.CLOUDINARY_FOLDER_NAME,
+          "image"
+        );
+      } catch (err) {
+        console.error("Error deleting thumbnail:", err.message);
       }
     }
 
-    // Delete sections and sub-sections
-    const courseSections = course.courseContent;
-    for (const sectionId of courseSections) {
-      // Delete sub-sections of the section
-      const section = await Section.findById(sectionId);
-      if (section) {
-        const subSections = section.subSection;
-        for (const subSectionId of subSections) {
-          await SubSection.findByIdAndDelete(subSectionId);
+    // Delete all subsections and sections
+    await Promise.all(
+      course.courseContent.map(async (sectionId) => {
+        const section = await Section.findById(sectionId);
+        if (section) {
+          await SubSection.deleteMany({ _id: { $in: section.subSection } });
         }
-      }
+        await Section.findByIdAndDelete(sectionId);
+      })
+    );
 
-      // Delete the section itself after deleting all the sub-sections of the section
-      await Section.findByIdAndDelete(sectionId);
-    }
-
-    // Delete the course from the database
+    // Delete the course
     await Course.findByIdAndDelete(courseId);
 
-    // Return response if course is deleted successfully
     return res.status(200).json({
       success: true,
       message: "Course deleted successfully",
     });
   } catch (error) {
+    console.error("Error deleting course:", error.message);
     return res.status(500).json({
       success: false,
       message: "Server error",
