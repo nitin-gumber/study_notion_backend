@@ -15,7 +15,7 @@ const OTPSchema = mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-    expires: 300, // 5 minutes
+    expires: 600, // Set the expiry time to 10 minutes
   },
 });
 
