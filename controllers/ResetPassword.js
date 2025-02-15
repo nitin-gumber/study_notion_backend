@@ -12,12 +12,21 @@ exports.resetPasswordToken = async (req, res) => {
     if (!email) {
       return res.status(400).json({
         success: false,
-        message: "Email Required",
+        message: "Email is required",
       });
     }
 
-    // check if the user exists
-    const user = await User.findOne({ email: email });
+    // Find and update user with reset token
+    const token = crypto.randomBytes(20).toString("hex");
+    const user = await User.findOneAndUpdate(
+      { email },
+      {
+        token,
+        resetPasswordExpires: Date.now() + 600000, // 10 minutes
+      },
+      { new: true }
+    );
+
     if (!user) {
       return res.status(404).json({
         success: false,
@@ -25,52 +34,33 @@ exports.resetPasswordToken = async (req, res) => {
       });
     }
 
-    // generate token and update the user details with token and expiry time
-    const token = crypto.randomBytes(20).toString("hex");
-    await User.findOneAndUpdate(
-      { email },
-      {
-        token: token,
-        resetPasswordExpires: Date.now() + 600000, // 10 minutes
-      },
-      { new: true }
-    );
+    // Construct reset URL
+    const resetUrl = `https://studynotion-online.vercel.app/update-password/${token}`;
 
-    // create url for the reset password
-    const url = `https://studynotion-online.vercel.app/update-password/${token}`;
-
-    // send the mail to the user
-    await mailSender(
+    // Send reset password email
+    mailSender(
       email,
       "Reset Your Password",
       `
       Dear ${user.firstName}, <br><br>
-      Click the link below to reset your password:
-      ${url}
-      <br><br>
-      If you didn’t request this, please ignore this email.
-      <br>
-      For security reasons, this link will expire in 10 minutes.
-      <br><br>
-      Best regards,  
-      <br>
-      The StudyNotion Team  
-      <br><br>
-       Email: info@studynotion.com
-      <br>  
-      Website: https://studynotion-edtech-project.vercel.app  
+      Click the link below to reset your password: <br>
+      <a href="${resetUrl}">${resetUrl}</a> <br><br>
+      If you didn't request this, please ignore this email. <br>
+      This link will expire in 10 minutes. <br><br>
+      Best regards, <br>
+      StudyNotion Team
       `
-    );
+    ).catch((err) => console.error("Error sending mail:", err.message));
 
-    // return response to user with success message
     return res.status(200).json({
       success: true,
-      message: "Email sent successfully, please check your email",
+      message: "Password reset email sent successfully",
     });
   } catch (error) {
+    console.error("Reset Password Token Error:", error.message);
     return res.status(500).json({
       success: false,
-      message: "Something went wrong while sending email",
+      message: "Error while sending reset password email",
       error: error.message,
     });
   }
@@ -81,15 +71,13 @@ exports.resetPassword = async (req, res) => {
   try {
     const { password, confirmPassword, token } = req.body;
 
-    // check if password and confirm password is provided or not
     if (!password || !confirmPassword) {
       return res.status(400).json({
         success: false,
-        message: "Password field required",
+        message: "Password field is required",
       });
     }
 
-    // validate the password
     if (!validatePassword(password)) {
       return res.status(400).json({
         success: false,
@@ -97,52 +85,44 @@ exports.resetPassword = async (req, res) => {
       });
     }
 
-    // check if password and confirm password match
     if (password !== confirmPassword) {
       return res.status(400).json({
         success: false,
-        message: "Password and Confirm Password must match, Please try again",
+        message: "Passwords do not match",
       });
     }
 
-    // check if token is valid
-    const userDetails = await User.findOne({ token });
+    // Find user with token and check expiry
+    const user = await User.findOne({ token });
 
-    // check if token is valid
-    if (!userDetails) {
-      return res.status(404).json({
-        success: false,
-        message: "Invalid Token",
-      });
-    }
-
-    // check if token is expired
-    if (userDetails.resetPasswordExpires < Date.now()) {
+    if (!user || user.resetPasswordExpires < Date.now()) {
       return res.status(400).json({
         success: false,
-        message: "Token Expired",
+        message: "Invalid or expired token",
       });
     }
 
-    // encrypt the password
+    // Hash new password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // update the password
-    await User.findOneAndUpdate(
-      { token },
-      { password: hashedPassword },
-      { new: true }
+    // Update password and remove token fields
+    await User.updateOne(
+      { _id: user._id },
+      {
+        password: hashedPassword,
+        $unset: { token: "", resetPasswordExpires: "" },
+      }
     );
 
-    // send email to user for password update
     return res.status(200).json({
       success: true,
-      message: "Password Updated Successfully",
+      message: "Password updated successfully",
     });
   } catch (error) {
+    console.error("Reset Password Error:", error.message);
     return res.status(500).json({
       success: false,
-      message: "Something went wrong while updating password",
+      message: "Error while updating password",
       error: error.message,
     });
   }
