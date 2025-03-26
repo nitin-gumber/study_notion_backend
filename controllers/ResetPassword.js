@@ -21,7 +21,7 @@ exports.resetPasswordToken = async (req, res) => {
     const user = await User.findOneAndUpdate(
       { email },
       {
-        token,
+        token: token,
         resetPasswordExpires: Date.now() + 600000, // 10 minutes
       },
       { new: true }
@@ -38,7 +38,7 @@ exports.resetPasswordToken = async (req, res) => {
     const resetUrl = `https://studynotion-online.vercel.app/update-password/${token}`;
 
     // Send reset password email
-    mailSender(
+    await mailSender(
       email,
       "Reset Your Password",
       `
