@@ -107,7 +107,7 @@ exports.passwordUpdated = (name) => {
   <body>
       <div class="container">
           <a href="https://studynotion-online.vercel.app/">
-              <img class="logo" src="https://i.ibb.co/7Xyj3PC/logo.png" alt="StudyNotion Logo">
+              <img class="logo" src="https://res.cloudinary.com/dm0hgrqoa/image/upload/v1743013778/rzp_logo_wvh8il.png" alt="StudyNotion Logo">
           </a>
           <div class="message">Password Updated Successfully</div>
           <div class="body">
@@ -115,7 +115,7 @@ exports.passwordUpdated = (name) => {
               <p>We wanted to let you know that your password was successfully updated. If this action wasn’t performed by you, please contact our support team immediately to secure your account.</p>
               <p>You can log in to your account using the button below:</p>
               <a class="cta" href="https://studynotion-online.vercel.app/login">Login to Your Account</a>
-              <p>If you need assistance, feel free to reach out to us at <a href="mailto:studynotionceo@gmail.com">info@studynotion.com</a>.</p>
+              <p>If you need assistance, feel free to reach out to us at <a href="mailto:studynotionceo@gmail.com">studynotionceo@gmail.com</a>.</p>
           </div>
           <div class="support">
               Best regards,<br>

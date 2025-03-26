@@ -122,7 +122,7 @@ exports.paymentSuccessfully = (name, amount, orderId, paymentId) => {
   <body>
       <div class="container">
           <a href="https://studynotion-online.vercel.app">
-              <img class="logo" src="https://i.ibb.co/7Xyj3PC/logo.png" alt="StudyNotion Logo">
+              <img class="logo" src="https://res.cloudinary.com/dm0hgrqoa/image/upload/v1743013778/rzp_logo_wvh8il.png" alt="StudyNotion Logo">
           </a>
           <div class="message">
               Payment Successful!
@@ -144,7 +144,7 @@ exports.paymentSuccessfully = (name, amount, orderId, paymentId) => {
   
           <div class="support">
               If you have any questions or need assistance, please feel free to reach out to us at 
-              <a href="mailto:studynotionceo@gmail.com">info@studynotion.com</a>. We're always here to help you!
+              <a href="mailto:studynotionceo@gmail.com">studynotionceo@gmail.com</a>. We're always here to help you!
           </div>
   
           <div class="footer">

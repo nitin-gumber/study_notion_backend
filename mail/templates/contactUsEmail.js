@@ -114,7 +114,7 @@ exports.contactUsEmail = (
           <div class="container">
               <div class="logo">
                   <a href="https://studynotion-online.vercel.app">
-                      <img src="https://i.ibb.co/7Xyj3PC/logo.png" alt="StudyNotion Logo">
+                      <img src="https://res.cloudinary.com/dm0hgrqoa/image/upload/v1743013778/rzp_logo_wvh8il.png" alt="StudyNotion Logo">
                   </a>
               </div>
               <div class="title">Thank You for Contacting Us!</div>
@@ -132,7 +132,7 @@ exports.contactUsEmail = (
               <a href="https://studynotion-online.vercel.app" class="cta-button">Visit StudyNotion</a>
               <div class="support">
                   Need further assistance? Contact us at 
-                  <a href="mailto:studynotionceo@gmail.com">info@studynotiononline.com</a>.
+                  <a href="mailto:studynotionceo@gmail.com">studynotionceo@gmail.com</a>.
               </div>
               <div class="footer">
                   You are receiving this email because you submitted a query via the StudyNotion Contact Form.<br>

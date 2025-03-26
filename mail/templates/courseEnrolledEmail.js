@@ -102,7 +102,7 @@ exports.courseEnrolledEmail = (courseName, name) => {
   <body>
       <div class="container">
           <a href="https://studynotion-online.vercel.app">
-              <img class="logo" src="https://i.ibb.co/7Xyj3PC/logo.png" alt="StudyNotion Logo">
+              <img class="logo" src="https://res.cloudinary.com/dm0hgrqoa/image/upload/v1743013778/rzp_logo_wvh8il.png" alt="StudyNotion Logo">
           </a>
           <div class="message">
               Course Registration Confirmation
@@ -115,7 +115,7 @@ exports.courseEnrolledEmail = (courseName, name) => {
           </div>
           <div class="support">
               If you have any questions or need assistance, please feel free to reach out to us at 
-              <a href="mailto:studynotionceo@gmail.com">info@studynotion.com</a>. We are here to help!
+              <a href="mailto:studynotionceo@gmail.com">studynotionceo@gmail.com</a>. We are here to help!
           </div>
           <div class="footer">
               You received this email because you registered for a course on <a href="https://studynotion-online.vercel.app">StudyNotion</a> <a href="https://x.com/Nitin601?t=tt1K5tdELxi2F8aeSbxZqg&s=09">Twitter</a> | <a href="https://www.linkedin.com/in/nitin-gumber-web-dev">LinkedIn</a> | <a href="https://www.instagram.com/nitin.gumber_/profilecard/?igsh=ZnpibmRycjMwZjJq">Instagram</a> | <a href="https://github.com/Nitin-Gumber">GitHub</a>

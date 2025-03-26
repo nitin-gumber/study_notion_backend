@@ -59,7 +59,7 @@ const emailVerificationTemplate = (otp, email) => {
       <body>
           <div class="container">
               <div class="logo">
-                  <img src="https://i.ibb.co/7Xyj3PC/logo.png" alt="StudyNotion Logo">
+                  <img src="https://res.cloudinary.com/dm0hgrqoa/image/upload/v1743013778/rzp_logo_wvh8il.png" alt="StudyNotion Logo">
               </div>
               <div class="title">Verify Your Email</div>
               <div class="content">
@@ -70,9 +70,9 @@ const emailVerificationTemplate = (otp, email) => {
                   If you didn’t request this, you can safely ignore this email.
               </div>
               <div class="footer">
-                  Need help? Contact us at <a href="mailto:studynotionceo@gmail.com">info@studynotion.com</a>
+                  Need help? Contact us at <a href="mailto:studynotionceo@gmail.com">studynotionceo@gmail.com</a>
                   <br>
-                  © 2024 StudyNotion. All Rights Reserved.
+                  &copy; ${new Date().getFullYear()} StudyNotion. All rights reserved.
               </div>
           </div>
       </body>
